@@ -6,6 +6,7 @@
 
 
 1. just make my own complete cheatsheet for Linux/Windows/AD perfectly  (get strong fundamental)
+
 2. and you need to be able to imagine the whole asessment process while repeating manually to get used to it
 3. practice repeatedly and to develop creativity and problem-solving skill (HTB boxes again, and prove play - from easiest to hardest) 
 4. write reports about 10 times 
