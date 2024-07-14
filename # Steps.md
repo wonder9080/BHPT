@@ -19,5 +19,5 @@
     - because my goal is too high to get a OSWE, etc.
     - I wanna get a role and badge
 7. Get a job
-
+a
 
