@@ -37,6 +37,15 @@ find / -name NAME 2>/dev/null
 | cut -d '|' -f 2 : delimeter 
 ```
 
+
+
+```
+tar -cf all.tar * : create 
+tar -xvf archieve.tar : extract
+tar -tvf archieve tar: list 
+mkdir unzip&&cd unzip&&tar -xvf
+```
+
 ## Windows
 - in powershell, 
 ```
@@ -52,3 +61,4 @@ unzip -l FILE.zip : list
 ```
 hostnamectl : hostname + uname -a 
 ```
+
