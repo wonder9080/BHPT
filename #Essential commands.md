@@ -33,8 +33,14 @@ find / -name NAME 2>/dev/null
 ```
 | tr -d "'" : ' except
 | tr ';' '\n' : ; to line-break
+| tr '[:upper:]' '[:lower:]' : upper to lower
 
 | cut -d '|' -f 2 : delimeter 
+
+replacing string 
+| tr ';' '\n' : ; to line-break
+sed 's/unix/linux' text.txt
+sed 's/\\//g'  : replace all duplications
 ```
 
 
