@@ -44,6 +44,11 @@ sed 's/\\//g'  : replace all duplications
 ```
 
 
+### Zip
+```
+unzip -d newdir FILE.zip
+unzip -l FILE.zip : list
+```
 
 ```
 tar -cf all.tar * : create 
@@ -52,19 +57,14 @@ tar -tvf archieve tar: list
 mkdir unzip&&cd unzip&&tar -xvf
 ```
 
+
+
+
 ## Windows
 - in powershell, 
 ```
 ls -Force : hidden file
 ```
 
-### Zip
-```
-unzip -d newdir FILE.zip
-unzip -l FILE.zip : list
-```
-### Linux Enumeration
-```
-hostnamectl : hostname + uname -a 
-```
+
 
