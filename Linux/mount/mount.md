@@ -96,7 +96,7 @@ gobuster dir -u http://172.31.199.185/ -w /usr/share/dirbuster/wordlists/small -
     commands shell scripts 
     ufw = firewall 
     
-    Linux Kernel 5.8 - vulnerable to CVE-2022-0847 Dirty Cow
+    **Linux Kernel 5.8 - vulnerable to CVE-2022-0847 Dirty Cow**
     Users groot and choi
   /Dictionaries/
     en-GB 
