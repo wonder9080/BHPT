@@ -41,6 +41,11 @@ replacing string
 | tr ';' '\n' : ; to line-break
 sed 's/unix/linux' text.txt
 sed 's/\\//g'  : replace all duplications
+
+
+Repeated lines/words
+  need to be sorted/adjacent in alphabetical order, and then uniq 
+sort comparingboth.txt | unique -d
 ```
 
 
@@ -58,38 +63,3 @@ mkdir unzip&&cd unzip&&tar -xvf
 ```
 
 
-
-
-## Windows
-### in powershell
-```
-ls -Force : hidden file
-```
-
-```
-- head  
-cat -First 5 username.txt
-Get-Service | select -First 10
-```
-
-```
-Get-Service | Where-Object {$_.name -eq "ALG"}
-```
-
-- grep
-```
-| Select-String passw
-or
-| Select-String -Pattern 'passw'
-
-
-get-service | Where-Object {$_.Name -match "abyss"} 
-: contains abyss 
-get-service | Where-Object {$_.Name -notmatch "abyss"}
-: exclude
-```
-
-### CMD
-```
-dir /s FILENAME : search file
-```

