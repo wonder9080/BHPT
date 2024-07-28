@@ -101,6 +101,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ### 정보 수집 - 웹
 
 기초적인 웹 정보 수집을 위해 포트 80을 방문하니 Apache2 기본 페이지를 확인할 수 있다. 해당 파일을 랜딩페이지로 유지한다면 공격자는 설정 파일 및 웹루트 경로( `/var/www/html`) 등 실제 경로를 쉽게 추측할 수 있다. 서버의 버전 정보는 물론 관련 취약점까지 확인 후 2차 공격을 시도할 수 있다.
+
 ![Pasted image 20240728075039](Pasted%20image%2020240728075039.png)
 
 
@@ -136,9 +137,11 @@ nikto -host 10.0.4.30 | tee nikto.output
 ### 취약점 진단
 
 워드프레스 로그인 페이지에서 기본 관리자 계정인 admin으로 임의의 비밀번호와 함께 로그인을 시도한다. 그 결과, 서버에서 해당 유저의 비밀번호가 틀렸다고 응답하기 때문에, admin 유저가 존재함을 알 수 있다.
+
 ![Pasted image 20240728075623](Pasted%20image%2020240728075623.png)
 
 `Gobuster` 툴을 통해 알아낸 `/blog/_backup/` 경로에 접속 시 디렉토리 리스팅이 가능하며, 중요 파일이 노출되어 있음을 확인한다.
+
 ![Pasted image 20240728080319](Pasted%20image%2020240728080319.png)
 
 
@@ -158,6 +161,7 @@ john --wordlist=/usr/share/wordlists/rockyou.txt corp.hash
 
 
 비밀번호를 이용해 해당 문서를 열람했을 때, admin 사용자에 대한 평문 비밀번호를 확인할 수 있다. 워드프레스 로그인 시도 시, 정상적으로 관리자 로그인이 가능함을 확인한다.
+
 ![Pasted image 20240728081440](Pasted%20image%2020240728081440.png)
 
 
@@ -165,15 +169,18 @@ john --wordlist=/usr/share/wordlists/rockyou.txt corp.hash
 
 
 파일 업로드 취약점과 관련하여 테마 또는 플러그인 추가하는 기능에서, zip 파일 대신 임의의 악성 php 파일 업로드를 시도했을 때, 파일 확장자에 대한 검증 없이 php 파일이 업로드 됨을 확인한다.
+
 ![Pasted image 20240728081757](Pasted%20image%2020240728081757.png)
 
 
 `/blog/wp-content/uploads/2024/07/` 경로로 접속하여 php 파일이 정상적으로 업로드 됨을 확인한다.
+
 ![Pasted image 20240728081936](Pasted%20image%2020240728081936.png)
 
 
 
 사전에 열어둔 공격자 서버의 1234 포트로 리버스 쉘을 받아오며, 웹서버 계정 권한으로 타겟 네트워크에 접속할 수 있다.
+
 ![Pasted image 20240728082509](Pasted%20image%2020240728082509.png)
 
 
@@ -181,6 +188,7 @@ john --wordlist=/usr/share/wordlists/rockyou.txt corp.hash
 ### 권한 상승
 
 root 권한 상승을 위해 파일 시스템 내에 잘못된 권한 설정이 있는지 확인한다. `sudo -l` 명령어를 이용해 root 비밀번호 없이 sudo 권한으로 실행가능한 파일이 존재함을 확인한다.
+
 ![Pasted image 20240728082711](Pasted%20image%2020240728082711.png)
 
 
@@ -327,6 +335,7 @@ service apache2 restart
 
 
 해당 디렉토리에서 리스팅이 금지되어 파일 확인이 불가함을 확인한다.
+
 ![Pasted image 20240728165107](Pasted%20image%2020240728165107.png)
 
 
